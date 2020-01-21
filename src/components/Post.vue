@@ -1,66 +1,42 @@
 <template>
 <div>
   <v-container class="postPage px-4">
-    <v-card>
+    <v-card class="thisPost">
           <div class="d-flex flex-no-wrap justify-space-between">
             <v-card-text class="py-0 px-1">
-              <v-row class="timeStamp"><small>{{ post.timeStamp }}</small></v-row>
+              <v-row class="timeStamp">
+                <small>{{ post.timeStamp }}</small>
+                <v-spacer/>
+              <v-btn height="20px" small color="#4d648d" class="removeBtn px-0" text @click="dialog= true">削除</v-btn>
+              <v-dialog v-model="dialog" max-width="280px">
+                <v-card>
+                  <v-card-title class="pt-3 pb-1" style="font-size: 14px;">以下を入力して削除します。</v-card-title>
+                  <v-card-text class="pb-2">
+                    <v-row style="height: 22px;">
+                      <v-col cols="6" class="pa-0"><span v-if="user_validation" class="vali" style="display: block; text-align: center;">＊ 半角英数字4文字以上</span></v-col>
+                      <v-col cols="6" class="pa-0"><span v-if="pass_validation" class="vali" style="display: block; text-align: center;">＊ 半角英数字4文字以上</span></v-col>
+                    </v-row>
+                    <v-row>
+                      <v-col cols="6" class="py-0">
+                        <v-text-field class="formId" hide-details outlined color="#4d648d" label="投稿ID" placeholder=" " v-model="formUser"></v-text-field>
+                      </v-col>
+                      <v-col cols="6" class="py-0">
+                        <v-text-field required class="formPass" hide-details outlined color="#4d648d" label="パスワード" placeholder=" " v-model="formPass"></v-text-field>
+                      </v-col>
+                    </v-row>
+                  </v-card-text>
+                  <span v-if="remove_validation" class="vali pr-5" style="display: block; text-align: right;">投稿IDまたはパスワードが間違っています</span>
+                  <v-card-actions class="pt-0">
+                    <v-spacer></v-spacer>
+                    <v-btn color="#4d648d" small text @click="cancelDialog()">キャンセル</v-btn>
+                    <v-btn color="#4d648d" small text @click="remove()">削除</v-btn>
+                  </v-card-actions>
+                </v-card>
+              </v-dialog>
+              </v-row>
               <v-row>
+                
                 <v-col cols="6" class="postContent pr-1 py-0">
-                  <v-row><p style="margin: 0 auto; font-weight: bold">求</p></v-row>
-                  <v-row class="mx-0" v-if="post.pokeName1">
-                      <v-img 
-                        aspect-ratio="1"
-                        contain
-                        max-height="22px"
-                        max-width="22px"
-                        class="px-1 image"
-                        :src="require('../assets/ball/B' + post.pokeBall1 + '.png')"
-                      />
-                      <p>{{ post.pokeName1 }}</p>
-                      <p class="pl-1" v-if="post.pokeYume1 || post.pokeIro1">(</p>
-                      <p v-if="post.pokeYume1">夢</p>
-                      <p v-if="post.pokeYume1 && post.pokeIro1">,</p>
-                      <p v-if="post.pokeIro1">色</p>
-                      <p v-if="post.pokeYume1 || post.pokeYume1">)</p>
-                  </v-row>
-                  <v-row class="mx-0" v-if="post.pokeName2">
-                    <v-img 
-                      aspect-ratio="1"
-                      contain
-                      max-height="22px"
-                      max-width="22px"
-                      class="px-1"
-                      :src="require('../assets/ball/B' + post.pokeBall2 + '.png')"
-                    />
-                    <p>{{ post.pokeName2 }}</p>
-                    <p class="pl-1" v-if="post.pokeYume2 || post.pokeIro2">(</p>
-                    <p v-if="post.pokeYume2">夢</p>
-                    <p v-if="post.pokeYume2 && post.pokeIro2">,</p>
-                    <p v-if="post.pokeIro2">色</p>
-                    <p v-if="post.pokeYume2 || post.pokeYume2">)</p>
-                  </v-row>
-                  <v-row class="mx-0" v-if="post.pokeName3">
-                    <v-img 
-                      aspect-ratio="1"
-                      contain
-                      max-height="22px"
-                      max-width="22px"
-                      class="px-1"
-                      :src="require('../assets/ball/B' + post.pokeBall3 + '.png')"
-                    />
-                    <p>{{ post.pokeName3 }}</p>
-                    <p class="pl-1" v-if="post.pokeYume3 || post.pokeIro3">(</p>
-                    <p v-if="post.pokeYume3">夢</p>
-                    <p v-if="post.pokeYume3 && post.pokeIro3">,</p>
-                    <p v-if="post.pokeIro3">色</p>
-                    <p v-if="post.pokeYume3 || post.pokeYume3">)</p>
-                  </v-row>
-                  <v-row class="mx-0" v-if="post.pokeItem1">
-                    <p class="pl-1">{{ post.pokeItem1 }}</p>
-                  </v-row>
-                </v-col>
-                <v-col cols="6" class="postContent px-1 py-0">
                   <v-row><p style="margin: 0 auto; font-weight: bold">出</p></v-row>
                   <v-row class="mx-0" v-if="post.pokeName4">
                     <v-img 
@@ -76,7 +52,7 @@
                     <p v-if="post.pokeYume4">夢</p>
                     <p v-if="post.pokeYume4 && post.pokeIro4">,</p>
                     <p v-if="post.pokeIro4">色</p>
-                    <p v-if="post.pokeYume4 || post.pokeYume4">)</p>
+                    <p v-if="post.pokeYume4 || post.pokeIro4">)</p>
                   </v-row>
                   <v-row class="mx-0" v-if="post.pokeName5">
                     <v-img 
@@ -92,7 +68,7 @@
                     <p v-if="post.pokeYume5">夢</p>
                     <p v-if="post.pokeYume5 && post.pokeIro5">,</p>
                     <p v-if="post.pokeIro5">色</p>
-                    <p v-if="post.pokeYume5 || post.pokeYume5">)</p>
+                    <p v-if="post.pokeYume5 || post.pokeIro5">)</p>
                   </v-row>
                   <v-row class="mx-0" v-if="post.pokeName6">
                     <v-img 
@@ -108,10 +84,64 @@
                     <p v-if="post.pokeYume6">夢</p>
                     <p v-if="post.pokeYume6 && post.pokeIro6">,</p>
                     <p v-if="post.pokeIro6">色</p>
-                    <p v-if="post.pokeYume6 || post.pokeYume6">)</p>
+                    <p v-if="post.pokeYume6 || post.pokeIro6">)</p>
                   </v-row>
                   <v-row class="mx-0" v-if="post.pokeItem2">
                     <p class="pl-1">{{ post.pokeItem2 }}</p>
+                  </v-row>
+                </v-col>
+                <v-col cols="6" class="postContent px-1 py-0">
+                  <v-row><p style="margin: 0 auto; font-weight: bold">求</p></v-row>
+                  <v-row class="mx-0" v-if="post.pokeName1">
+                      <v-img 
+                        aspect-ratio="1"
+                        contain
+                        max-height="22px"
+                        max-width="22px"
+                        class="px-1 image"
+                        :src="require('../assets/ball/B' + post.pokeBall1 + '.png')"
+                      />
+                      <p>{{ post.pokeName1 }}</p>
+                      <p class="pl-1" v-if="post.pokeYume1 || post.pokeIro1">(</p>
+                      <p v-if="post.pokeYume1">夢</p>
+                      <p v-if="post.pokeYume1 && post.pokeIro1">,</p>
+                      <p v-if="post.pokeIro1">色</p>
+                      <p v-if="post.pokeYume1 || post.pokeIro1">)</p>
+                  </v-row>
+                  <v-row class="mx-0" v-if="post.pokeName2">
+                    <v-img 
+                      aspect-ratio="1"
+                      contain
+                      max-height="22px"
+                      max-width="22px"
+                      class="px-1"
+                      :src="require('../assets/ball/B' + post.pokeBall2 + '.png')"
+                    />
+                    <p>{{ post.pokeName2 }}</p>
+                    <p class="pl-1" v-if="post.pokeYume2 || post.pokeIro2">(</p>
+                    <p v-if="post.pokeYume2">夢</p>
+                    <p v-if="post.pokeYume2 && post.pokeIro2">,</p>
+                    <p v-if="post.pokeIro2">色</p>
+                    <p v-if="post.pokeYume2 || post.pokeIro2">)</p>
+                  </v-row>
+                  <v-row class="mx-0" v-if="post.pokeName3">
+                    <v-img 
+                      aspect-ratio="1"
+                      contain
+                      max-height="22px"
+                      max-width="22px"
+                      class="px-1"
+                      :src="require('../assets/ball/B' + post.pokeBall3 + '.png')"
+                    />
+                    <p>{{ post.pokeName3 }}</p>
+                    <p class="pl-1" v-if="post.pokeYume3 || post.pokeIro3">(</p>
+                    <p v-if="post.pokeYume3">夢</p>
+                    <p v-if="post.pokeYume3 && post.pokeIro3">,</p>
+                    <p v-if="post.pokeIro3">色</p>
+                    <p v-if="post.pokeYume3 || post.pokeIro3">)</p>
+                  </v-row>
+                  <v-row class="mx-0" v-if="post.pokeItem1">
+                    <p class="pl-1">{{ post.pokeItem1 }}</p>
                   </v-row>
                 </v-col>
               </v-row>
@@ -122,8 +152,8 @@
                 <v-col cols="3" class="postContent" style="position:relative;">
                   <p v-if="post.room" class="postRoom">パスワード<br> {{ post.room }}</p>
                 </v-col>
-                <v-col cols="1" class="postContent pb-0 pl-0" style="position:relative;">
-                  <img :src="require('../assets/icon/sumi.png')" v-if="post.fin"/>
+                <v-col cols="1" class="postContent pb-0 pl-0">
+                  <!-- <img :src="require('../assets/icon/sumi.png')" v-if="post.fin"/> -->
                 </v-col>
               </v-row>
             </v-card-text>
@@ -154,7 +184,9 @@
     </v-card>
 
   </v-container>
-
+  <!-- admax -->
+    <div id="ad_post" class="pt-4" width="100%"></div>
+  <!-- admax -->
   <v-footer
     color="#283655"
     padless
@@ -164,7 +196,6 @@
     <span v-if="comment_validation" class="vali comVali">＊ 不適切なワードが含まれています。</span>
     <textarea v-model="comment.comment_cont" :rows="rows" placeholder="コメントを入力" hide-details></textarea>
     <v-btn text icon small color="white" @click="pushComment()"><v-icon>mdi-send</v-icon></v-btn>
-
   </v-footer>
   </div>
 </template>
@@ -175,6 +206,12 @@ import firebase from 'firebase'
 export default {
   data() {
     return {
+      formUser: null,
+      formPass: null,
+      dialog: false,
+      remove_validation: false,
+      pass_validation: true,
+      user_validation: true,
       comment_validation: false,
       ngList: [],
       docId: '',
@@ -187,6 +224,8 @@ export default {
       post: {
         post_id: '',
         fin: undefined,
+        formPass:'',
+        formUser:'',
         room: '',
         other: '',
         pokeName1: '',
@@ -229,7 +268,8 @@ export default {
     }
   },
   mounted() {
-    this.fetchData()
+    this.fetchData(),
+    this.setAd()
   },
   created: function() {
     this.ngList = require('../../public/ngList.json')
@@ -238,6 +278,12 @@ export default {
     'comment.comment_cont': function(newVal) {
       if(this.isNg(newVal)) this.comment_validation = true
       else this.comment_validation = false
+    },
+    formUser(newVal) {
+      this.user_validation = this.isUserPass(newVal)
+    },
+    formPass(newVal) {
+      this.pass_validation = this.isUserPass(newVal)
     },
     toTop: function() {
       // this.$nextTick(() => {
@@ -254,6 +300,59 @@ export default {
     }
   },
   methods: {
+    setAd() {
+      var target = document.getElementById('ad_post'); 
+      var iframe = document.createElement('iframe'); //動的にiframeを作成
+      iframe.width = 320;
+      iframe.height = 50;
+      iframe.frameBorder = "0";
+      iframe.scrolling = "no";
+      iframe.marginWidth = 0;
+      iframe.marginHeight = 0;
+      iframe.src = "about:self"; //iframeのsrcをabout:selfに設定
+      target.appendChild(iframe);
+      var src = "https://adm.shinobi.jp/s/ce6a8c261653f1cf01b3ef081fde46c8"; // サードーパーティのurl
+      var doc = iframe.contentWindow.document;
+      doc.open();
+      var d = "";
+      d += '<html><head></head>';
+      d += '<body>';
+      d += '<script src="'+src+'"><\/script>'; // eslint-disable-line no-useless-escape
+      d += '<script>inDapIF = true;<\/script>'; // eslint-disable-line no-useless-escape
+      d += '</body></html>';
+      doc.write(d);
+      doc.close();
+    },
+    remove() {
+      if(this.user_validation || this.pass_validation) {
+        this.remove_validation = true
+        return
+      }
+      if(this.post.formUser == this.formUser && this.post.formPass == this.formPass) {
+        firebase.firestore().collection("posted_data").doc(this.docId).delete()
+        this.formUser = null
+        this.formPass = null
+        this.dialog = false
+        // todo homeに戻る
+        this.$router.go(-1)
+      }
+      else {
+        this.remove_validation = true
+        return
+      }
+    },
+    cancelDialog() {
+      this.formUser = null
+      this.formPass = null
+      this.remove_validation = false
+      this.dialog = false
+
+    },
+    isUserPass(item) {
+      if(item != null && item.length < 4) return true
+      else if(item == null || item.match(/^[0-9a-zA-Z]*$/) == null) return true
+      else return false
+    },
     isNg(item) {
       var regexp = new RegExp(this.ngList.join('|'))
       return regexp.test(item)
@@ -322,6 +421,14 @@ export default {
 
 <style lang="scss">
 .postPage {
+
+  .thisPost {
+    max-height: 28vh;
+    overflow: scroll;
+    -ms-overflow-style: none;    /* IE, Edge 対応 */
+    scrollbar-width: none;       /* Firefox 対応 */
+  }
+
   .timeStamp {
     margin: 5px 0 0 10px;
   }
@@ -462,6 +569,17 @@ export default {
         right: 0;
         transform: scale(0.8)
       }
-    
+}
+
+#ad_post {
+  text-align: center;
+  height: 66px;
+  left:0;
+  right: 0;
+  margin: auto;
+  position: absolute;
+  bottom: 116px;
+  // margin-top: auto;
+  // margin-bottom: 0;
 }
 </style>

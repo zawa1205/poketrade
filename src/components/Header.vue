@@ -11,7 +11,7 @@
       icon
       small
       color="white"
-      @click="toTop()"
+      @click="$router.go(-1)"
       :class="{'clearBtn': $route.path === '/'}"
       class="backIcon"
     >
@@ -48,11 +48,16 @@
           <v-icon>mdi-close</v-icon>
         </v-btn>
         <div class="menuList">
-          <div>
+          <v-divider/>
+          <router-link to="/mypage"><p>My投稿一覧</p></router-link>
+          <v-divider/>
+
+
+          <div class="unei mt-1">
             <p style="font-weight: bold">ー 運営者より ー</p>
             <p>大変恐縮ですが<br>現在、試作段階です。</p>
             <p>ご意見やコメント、<br>バグ等ありましたら</p>
-            <a href="https://twitter.com/poketradeswsh" target="__blank"><p>@poketradeswsh</p></a>
+            <a href="https://twitter.com/poketradeswsh" target="__blank"><p style="font-weight: bold">@poketradeswsh</p></a>
             <p>にDM、またはメンションでお願いします。</p>
             <p>利用して下さる人が増えるほどマッチングもしやすくなるので<br>拡散していただけると運営者も励みになります。</p>
           </div>
@@ -122,6 +127,15 @@ export default {
   .menuList {
     margin-top: 54px;
 
+    .unei {
+      line-height: 18px;
+    }
+
+    a, a:visited, a:hover {
+      color: white ;
+      text-decoration: none;
+    }
+
     p {
       margin: 12px;
       text-align: center;
@@ -133,7 +147,7 @@ export default {
       width: 100%;
 
       a, a:visited, a:hover {
-        color: white;
+        color: white ;
         text-decoration: none;
       }
 

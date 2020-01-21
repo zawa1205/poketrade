@@ -15,63 +15,22 @@
         <v-card-text>
           <v-container class="formContents">
           <!-- <small style="color: red">* は必須項目</small> -->
-            <v-row class="title" style="margin-top: 20px;">
-              <h3><span style="color:red">*</span>求めるポケモン</h3>
+            <v-row class="title"><h3><span style="color:red">*</span>投稿情報</h3><span style="color:red; font-size: 8px; padding-left: 4px;">(My投稿一覧、投稿削除に必要)</span></v-row>
+            <v-row style="height: 22px;">
+              <v-col cols="6" class="pa-0"><span v-if="user_validation" class="vali" style="display: block; text-align: center;">＊ 半角英数字4文字以上</span></v-col>
+              <v-col cols="6" class="pa-0"><span v-if="pass_validation" class="vali" style="display: block; text-align: center;">＊ 半角英数字4文字以上</span></v-col>
             </v-row>
-          <span v-if="want_validation" class="vali">＊ ポケモン/もちものを選んでください。</span>
+            <v-row>
+              <v-col cols="6" class="py-0 pr-1">
+                <v-text-field class="formId" hide-details outlined color="#4d648d" label="投稿ID" placeholder=" " v-model="form_data.formUser"></v-text-field>
+              </v-col>
+              <v-col cols="6" class="py-0 pl-1">
+                <v-text-field required class="formPass" hide-details outlined color="#4d648d" label="パスワード" placeholder=" " v-model="form_data.formPass"></v-text-field>
+              </v-col>
+            </v-row>
 
-            <p class="colTitle">ポケモン1</p>
-            <v-row class="poke">
-              <v-col cols="4">
-                <v-select label="ポケモン1" v-model="form_data.pokeName1" :options="pokeList"></v-select>
-              </v-col>
-              <v-col cols="4">
-                <v-select v-model="form_data.pokeBall1" :options="ballList" label="ボール"></v-select>
-              </v-col>
-              <v-col cols="2">
-                <v-checkbox class="check" v-model="form_data.pokeYume1" label="夢"></v-checkbox>
-              </v-col>
-              <v-col cols="2">
-                <v-checkbox class="check" v-model="form_data.pokeIro1" label="色"></v-checkbox>
-              </v-col>
-            </v-row>
-            <p class="colTitle">ポケモン2</p>
-            <v-row class="poke">
-              <v-col cols="4">
-                <v-select v-model="form_data.pokeName2" :options="pokeList" label="ポケモン2"></v-select>
-              </v-col>
-              <v-col cols="4">
-                <v-select v-model="form_data.pokeBall2" :options="ballList" label="ボール"></v-select>
-              </v-col>
-              <v-col cols="2">
-                <v-checkbox class="check" v-model="form_data.pokeYume2" label="夢"></v-checkbox>
-              </v-col>
-              <v-col cols="2">
-                <v-checkbox class="check" v-model="form_data.pokeIro2" label="色"></v-checkbox>
-              </v-col>
-            </v-row>
-            <p class="colTitle">ポケモン3</p>
-            <v-row class="poke">
-              <v-col cols="4">
-                <v-select v-model="form_data.pokeName3" :options="pokeList" label="ポケモン3"></v-select>
-              </v-col>
-              <v-col cols="4">
-                <v-select v-model="form_data.pokeBall3" :options="ballList" label="ボール"></v-select>
-              </v-col>
-              <v-col cols="2">
-                <v-checkbox class="check" v-model="form_data.pokeYume3" label="夢"></v-checkbox>
-              </v-col>
-              <v-col cols="2">
-                <v-checkbox class="check" v-model="form_data.pokeIro3" label="色"></v-checkbox>
-              </v-col>
-            </v-row>
-            <p class="colTitle">もちもの</p>
-            <v-row class="poke">
-              <v-col cols="8">
-                <v-select v-model="form_data.pokeItem1" :options="itemList" label="もちもの"></v-select>
-              </v-col>
-            </v-row>
             <v-divider class="bottomBar"/>
+
             <v-row class="title"><h3><span style="color:red">*</span>出せるポケモン</h3></v-row>
             <span v-if="give_validation" class="vali">＊ ポケモン/もちものを選んでください。</span>
             <p class="colTitle">ポケモン1</p>
@@ -83,10 +42,10 @@
                 <v-select v-model="form_data.pokeBall4" :options="ballList" label="ボール"></v-select>
               </v-col>
               <v-col cols="2">
-                <v-checkbox class="check" v-model="form_data.pokeYume4" label="夢"></v-checkbox>
+                <v-checkbox class="check" v-model="form_data.pokeYume4" label="夢" value="夢"></v-checkbox>
               </v-col>
               <v-col cols="2">
-                <v-checkbox class="check" v-model="form_data.pokeIro4" label="色"></v-checkbox>
+                <v-checkbox class="check" v-model="form_data.pokeIro4" label="色" value="色"></v-checkbox>
               </v-col>
             </v-row>
             <p class="colTitle">ポケモン2</p>
@@ -98,10 +57,10 @@
                 <v-select v-model="form_data.pokeBall5" :options="ballList" label="ボール"></v-select>
               </v-col>
               <v-col cols="2">
-                <v-checkbox class="check" v-model="form_data.pokeYume5" label="夢"></v-checkbox>
+                <v-checkbox class="check" v-model="form_data.pokeYume5" label="夢" value="夢"></v-checkbox>
               </v-col>
               <v-col cols="2">
-                <v-checkbox class="check" v-model="form_data.pokeIro5" label="色"></v-checkbox>
+                <v-checkbox class="check" v-model="form_data.pokeIro5" label="色" value="色"></v-checkbox>
               </v-col>
             </v-row>
             <p class="colTitle">ポケモン3</p>
@@ -113,16 +72,76 @@
                 <v-select v-model="form_data.pokeBall6" :options="ballList" label="ボール"></v-select>
               </v-col>
               <v-col cols="2">
-                <v-checkbox class="check" v-model="form_data.pokeYume6" label="夢"></v-checkbox>
+                <v-checkbox class="check" v-model="form_data.pokeYume6" label="夢" value="夢"></v-checkbox>
               </v-col>
               <v-col cols="2">
-                <v-checkbox class="check" v-model="form_data.pokeIro6" label="色"></v-checkbox>
+                <v-checkbox class="check" v-model="form_data.pokeIro6" label="色" value="色"></v-checkbox>
               </v-col>
             </v-row>
             <p class="colTitle">もちもの</p>
             <v-row class="poke">
               <v-col cols="8">
                 <v-select v-model="form_data.pokeItem2" :options="itemList" label="もちもの"></v-select>
+              </v-col>
+            </v-row>
+
+            <v-divider class="bottomBar"/>
+
+
+            <v-row class="title" style="margin-top: 20px;">
+              <h3><span style="color:red">*</span>求めるポケモン</h3>
+            </v-row>
+            <span v-if="want_validation" class="vali">＊ ポケモン/もちものを選んでください。</span>
+
+            <p class="colTitle">ポケモン1</p>
+            <v-row class="poke">
+              <v-col cols="4">
+                <v-select label="ポケモン1" v-model="form_data.pokeName1" :options="pokeList"></v-select>
+              </v-col>
+              <v-col cols="4">
+                <v-select v-model="form_data.pokeBall1" :options="ballList" label="ボール"></v-select>
+              </v-col>
+              <v-col cols="2">
+                <v-checkbox class="check" v-model="form_data.pokeYume1" label="夢" value="夢"></v-checkbox>
+              </v-col>
+              <v-col cols="2">
+                <v-checkbox class="check" v-model="form_data.pokeIro1" label="色" value="色"></v-checkbox>
+              </v-col>
+            </v-row>
+            <p class="colTitle">ポケモン2</p>
+            <v-row class="poke">
+              <v-col cols="4">
+                <v-select v-model="form_data.pokeName2" :options="pokeList" label="ポケモン2"></v-select>
+              </v-col>
+              <v-col cols="4">
+                <v-select v-model="form_data.pokeBall2" :options="ballList" label="ボール"></v-select>
+              </v-col>
+              <v-col cols="2">
+                <v-checkbox class="check" v-model="form_data.pokeYume2" label="夢" value="夢"></v-checkbox>
+              </v-col>
+              <v-col cols="2">
+                <v-checkbox class="check" v-model="form_data.pokeIro2" label="色" value="色"></v-checkbox>
+              </v-col>
+            </v-row>
+            <p class="colTitle">ポケモン3</p>
+            <v-row class="poke">
+              <v-col cols="4">
+                <v-select v-model="form_data.pokeName3" :options="pokeList" label="ポケモン3"></v-select>
+              </v-col>
+              <v-col cols="4">
+                <v-select v-model="form_data.pokeBall3" :options="ballList" label="ボール"></v-select>
+              </v-col>
+              <v-col cols="2">
+                <v-checkbox class="check" v-model="form_data.pokeYume3" label="夢" value="夢"></v-checkbox>
+              </v-col>
+              <v-col cols="2">
+                <v-checkbox class="check" v-model="form_data.pokeIro3" label="色" value="色"></v-checkbox>
+              </v-col>
+            </v-row>
+            <p class="colTitle">もちもの</p>
+            <v-row class="poke">
+              <v-col cols="8">
+                <v-select v-model="form_data.pokeItem1" :options="itemList" label="もちもの"></v-select>
               </v-col>
             </v-row>
 
@@ -165,6 +184,8 @@ export default {
   data() {
     return {
       form_data: {
+        formPass:'',
+        formUser:'',
         fin: false,
         room: '',
         other: '',
@@ -196,6 +217,8 @@ export default {
         pokeItem2: '',
       },
       // id_last: 0,
+      user_validation: true,
+      pass_validation: true,
       other_validation: false,
       room_validation: false,
       post_validation: false,
@@ -215,6 +238,11 @@ export default {
     this.ngList = require('../../public/ngList.json')
   },
   methods: {
+    isUserPass(item) {
+      if(item != null && item.length < 4) return true
+      else if(item == null || item.match(/^[0-9a-zA-Z]*$/) == null) return true
+      else return false
+    },
     wantVali() {
       if(
         this.form_data.pokeName1 == '' &&
@@ -223,6 +251,7 @@ export default {
         this.form_data.pokeItem1 == ''
       ) {
         this.want_validation = true
+        return true
       }
     },
     giveVali() {
@@ -233,10 +262,13 @@ export default {
         this.form_data.pokeItem2 == ''
       ) {
         this.give_validation = true
+        return true
       }
     },
     postVali() {
       if(
+        this.form_data.formUser == '' && 
+        this.form_data.formPass == '' &&
         this.form_data.room == '' &&
         this.form_data.other == '' &&
         this.form_data.pokeName1 == '' &&
@@ -306,6 +338,8 @@ export default {
       return year + '年' + month + '月' + date + '日' + hours + '時' + minute + '分' + second + '秒'
     },
     clearInput() {
+      this.form_data.formUser = ''
+      this.form_data.formPass = ''
       this.form_data.room = ''
       this.form_data.other = ''
       this.form_data.pokeName1 = ''
@@ -320,18 +354,18 @@ export default {
       this.form_data.pokeBall4 = ''
       this.form_data.pokeBall5 = ''
       this.form_data.pokeBall6 = ''
-      this.form_data.pokeYume1 = false
-      this.form_data.pokeYume2 = false
-      this.form_data.pokeYume3 = false
-      this.form_data.pokeYume4 = false
-      this.form_data.pokeYume5 = false
-      this.form_data.pokeYume6 = false
-      this.form_data.pokeIro1 = false
-      this.form_data.pokeIro2 = false
-      this.form_data.pokeIro3 = false
-      this.form_data.pokeIro4 = false
-      this.form_data.pokeIro5 = false
-      this.form_data.pokeIro6 = false
+      this.form_data.pokeYume1 = ''
+      this.form_data.pokeYume2 = ''
+      this.form_data.pokeYume3 = ''
+      this.form_data.pokeYume4 = ''
+      this.form_data.pokeYume5 = ''
+      this.form_data.pokeYume6 = ''
+      this.form_data.pokeIro1 = ''
+      this.form_data.pokeIro2 = ''
+      this.form_data.pokeIro3 = ''
+      this.form_data.pokeIro4 = ''
+      this.form_data.pokeIro5 = ''
+      this.form_data.pokeIro6 = ''
       this.form_data.pokeItem1 = ''
       this.form_data.pokeItem2 = ''
     },
@@ -343,15 +377,69 @@ export default {
       this.want_validation = false
     },
     test() {
-      this.wantVali()
-      this.giveVali()
-      if(this.postVali()) return
+      if(this.user_Validation || this.pass_validation || this.wantVali() || this.giveVali() || this.postVali()) return
 
       firebase.firestore().collection("posted_data").add({
         room: this.form_data.room.trim(),
         fin: false,
         // post_id: this.id_last,
         post_id: this.makeId(),
+        take: [
+          this.form_data.pokeName1,
+          this.form_data.pokeName1 + this.form_data.pokeBall1,
+          this.form_data.pokeName1 + this.form_data.pokeYume1,
+          this.form_data.pokeName1 + this.form_data.pokeIro1,
+          this.form_data.pokeName1 + this.form_data.pokeBall1 + this.form_data.pokeYume1,
+          this.form_data.pokeName1 + this.form_data.pokeBall1 + this.form_data.pokeIro1,
+          this.form_data.pokeName1 +this.form_data.pokeYume1 + this.form_data.pokeIro1,
+          this.form_data.pokeName1 + this.form_data.pokeBall1 +this.form_data.pokeYume1 + this.form_data.pokeIro1,
+          this.form_data.pokeName2,
+          this.form_data.pokeName2 + this.form_data.pokeBall2,
+          this.form_data.pokeName2 + this.form_data.pokeYume2,
+          this.form_data.pokeName2 + this.form_data.pokeIro2,
+          this.form_data.pokeName2 + this.form_data.pokeBall2 + this.form_data.pokeYume2,
+          this.form_data.pokeName2 + this.form_data.pokeBall2 + this.form_data.pokeIro2,
+          this.form_data.pokeName2 +this.form_data.pokeYume2 + this.form_data.pokeIro2,
+          this.form_data.pokeName2 + this.form_data.pokeBall2 +this.form_data.pokeYume2 + this.form_data.pokeIro2,
+          this.form_data.pokeName3,
+          this.form_data.pokeName3 + this.form_data.pokeBall3,
+          this.form_data.pokeName3 + this.form_data.pokeYume3,
+          this.form_data.pokeName3 + this.form_data.pokeIro3,
+          this.form_data.pokeName3 + this.form_data.pokeBall3 + this.form_data.pokeYume3,
+          this.form_data.pokeName3 + this.form_data.pokeBall3 + this.form_data.pokeIro3,
+          this.form_data.pokeName3 +this.form_data.pokeYume3 + this.form_data.pokeIro3,
+          this.form_data.pokeName3 + this.form_data.pokeBall3 +this.form_data.pokeYume3 + this.form_data.pokeIro3,
+          this.form_data.pokeItem1
+        ],
+        give: [
+          this.form_data.pokeName4,
+          this.form_data.pokeName4 + this.form_data.pokeBall4,
+          this.form_data.pokeName4 + this.form_data.pokeYume4,
+          this.form_data.pokeName4 + this.form_data.pokeIro4,
+          this.form_data.pokeName4 + this.form_data.pokeBall4 + this.form_data.pokeYume4,
+          this.form_data.pokeName4 + this.form_data.pokeBall4 + this.form_data.pokeIro4,
+          this.form_data.pokeName4 +this.form_data.pokeYume4 + this.form_data.pokeIro4,
+          this.form_data.pokeName4 + this.form_data.pokeBall4 +this.form_data.pokeYume4 + this.form_data.pokeIro4,
+          this.form_data.pokeName5,
+          this.form_data.pokeName5 + this.form_data.pokeBall5,
+          this.form_data.pokeName5 + this.form_data.pokeYume5,
+          this.form_data.pokeName5 + this.form_data.pokeIro5,
+          this.form_data.pokeName5 + this.form_data.pokeBall5 + this.form_data.pokeYume5,
+          this.form_data.pokeName5 + this.form_data.pokeBall5 + this.form_data.pokeIro5,
+          this.form_data.pokeName5 +this.form_data.pokeYume5 + this.form_data.pokeIro5,
+          this.form_data.pokeName5 + this.form_data.pokeBall5 +this.form_data.pokeYume5 + this.form_data.pokeIro5,
+          this.form_data.pokeName6,
+          this.form_data.pokeName6 + this.form_data.pokeBall6,
+          this.form_data.pokeName6 + this.form_data.pokeYume6,
+          this.form_data.pokeName6 + this.form_data.pokeIro6,
+          this.form_data.pokeName6 + this.form_data.pokeBall6 + this.form_data.pokeYume6,
+          this.form_data.pokeName6 + this.form_data.pokeBall6 + this.form_data.pokeIro6,
+          this.form_data.pokeName6 +this.form_data.pokeYume6 + this.form_data.pokeIro6,
+          this.form_data.pokeName6 + this.form_data.pokeBall6 +this.form_data.pokeYume6 + this.form_data.pokeIro6,
+          this.form_data.pokeItem2
+        ],
+        formUser: this.form_data.formUser.trim(),
+        formPass: this.form_data.formPass.trim(),
         pokeName1: this.form_data.pokeName1.trim(),
         pokeName2: this.form_data.pokeName2.trim(),
         pokeName3: this.form_data.pokeName3.trim(),
@@ -403,6 +491,32 @@ export default {
       handler(newValue){
         this.other_validation = this.isNg(newValue.other)
         this.room_validation = this.isRoom(newValue.room)
+        this.user_validation = this.isUserPass(newValue.formUser)
+        this.pass_validation = this.isUserPass(newValue.formPass)
+        if(newValue.pokeName1 == null) this.pokeName1 = ''
+        if(newValue.pokeName2 == null) this.pokeName2 = ''
+        if(newValue.pokeName3 == null) this.pokeName3 = ''
+        if(newValue.pokeName4 == null) this.pokeName4 = ''
+        if(newValue.pokeName5 == null) this.pokeName5 = ''
+        if(newValue.pokeName6 == null) this.pokeName6 = ''
+        if(newValue.pokeBall1 == null) this.pokeBall1 = ''
+        if(newValue.pokeBall2 == null) this.pokeBall2 = ''
+        if(newValue.pokeBall3 == null) this.pokeBall3 = ''
+        if(newValue.pokeBall4 == null) this.pokeBall4 = ''
+        if(newValue.pokeBall5 == null) this.pokeBall5 = ''
+        if(newValue.pokeBall6 == null) this.pokeBall6 = ''
+        if(newValue.pokeYume1 == null) this.pokeYume1 = ''
+        if(newValue.pokeYume2 == null) this.pokeYume2 = ''
+        if(newValue.pokeYume3 == null) this.pokeYume3 = ''
+        if(newValue.pokeYume4 == null) this.pokeYume4 = ''
+        if(newValue.pokeYume5 == null) this.pokeYume5 = ''
+        if(newValue.pokeYume6 == null) this.pokeYume6 = ''
+        if(newValue.pokeIro1 == null) this.pokeIro1 = ''
+        if(newValue.pokeIro2 == null) this.pokeIro2 = ''
+        if(newValue.pokeIro3 == null) this.pokeIro3 = ''
+        if(newValue.pokeIro4 == null) this.pokeIro4 = ''
+        if(newValue.pokeIro5 == null) this.pokeIro5 = ''
+        if(newValue.pokeIro6 == null) this.pokeIro6 = ''
       },
       deep: true
     }
@@ -513,4 +627,16 @@ ul {
   color: red !important;
   font-size: 8px;
 }
+
+.formPass, .formId {
+  fieldset {
+    height: 38px;
+  }
+  .v-input__slot, .v-input__control, .v-text-field__slot {
+    height: 38px;
+    min-height: 38px !important;
+  }
+}
+
+
 </style>
