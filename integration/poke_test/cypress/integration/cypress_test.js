@@ -162,7 +162,7 @@ describe('poketrade check' , function(){
 
     for(var i=arr.length-1 ; i>-1 ; i--){ //arrの最後尾からみる
       cy.then(() =>{
-        console.count("最後尾から");
+        console.count("最後尾より");
       });
 
       cy.get("#wrapper > div > div > div.row.addBtn > button").click()
