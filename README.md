@@ -1,6 +1,11 @@
+※ドメイン更新を停めたため、Twitter記載のドメインは現在アクセスできなくなっております。  
+閲覧したい場合は、本README記載「サイトはこちら」部分よりお願いいたします。
 # poketrade
 
-サイトは[こちら](https://poketrade-swsh.com)
+サイトは[こちら](https://poketrade-pwa.web.app/)
+
+## Twitter（稼働当初の反響）
+https://twitter.com/poketradeswsh/status/1216401377678655488
 
 ## Project setup
 ```
